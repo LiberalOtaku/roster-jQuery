@@ -13,19 +13,19 @@ var app = {
     });
     this.form = $(formSelector);
     this.list = $(listSelector);
-    // this.getLocalStorage();
+    this.getLocalStorage();
     this.setupEventListeners();
     // this.refreshRoster();
   },
 
-  // getLocalStorage: function() {
-  //   var roster = JSON.parse(localStorage.getItem('roster'));
-  //   if (roster) {
-  //     $.each(roster, function(i, student) {
-  //       app.list.append(app.buildList(student.name, student.favorite));
-  //     });
-  //   }
-  // },
+  getLocalStorage: function() {
+    var roster = JSON.parse(localStorage.getItem('roster'));
+    if (roster) {
+      $.each(roster, function(i, student) {
+        app.list.append(app.buildList(student.name, student.favorite));
+      });
+    }
+  },
 
   setupEventListeners: function() {
     this.form.submit(this.addStudent.bind(this));
@@ -54,6 +54,7 @@ var app = {
     // create edit button
     var editLink = this.buildLink({
       contents: '<i class="fa fa-pencil fa-lg"></i>',
+      href: "#",
       class: "edit button tiny radius secondary",
       handler: function() {
         // create edit field
@@ -93,9 +94,20 @@ var app = {
       }
     });
 
+    // create rivals button
+    var rivalsLink = this.buildLink({
+      contents: '<i class="fa fa-bomb fa-lg"></i>',
+      href: "rivals.html",
+      class: "rival button tiny radius secondary",
+      handler: function() {
+        localStorage.setItem("student-id", JSON.stringify(dl.attr("data-id")));
+      }
+    });
+
     // create delete button
     var deleteLink = this.buildLink({
-      contents: '<i class="fa fa-times fa-lg"></i>',
+      contents: '<i class="fa fa-trash-o fa-lg"></i>',
+      href: "#",
       class: "remove button tiny radius alert",
       handler: function() {
         $.ajax({
@@ -114,6 +126,7 @@ var app = {
     // create favorite button
     var favoriteLink = this.buildLink({
       contents: '<i class="fa fa-star fa-lg"></i>',
+      href: "#",
       class: "favorite button tiny radius",
       handler: function() {
         if (editLink.attr("class") === "edit button tiny radius secondary") {
@@ -156,6 +169,7 @@ var app = {
     // // create top button
     // var topLink = this.buildLink({
     //   contents: '<i class="fa fa-arrow-circle-up fa-lg"></i>',
+    //   href: "#",
     //   class: "top button tiny radius",
     //   handler: function() {
     //     // move item to the top
@@ -168,6 +182,7 @@ var app = {
     // // create up button
     // var upLink = this.buildLink({
     //   contents: '<i class="fa fa-arrow-up fa-lg"></i>',
+    //   href: "#",
     //   class: "up button tiny radius",
     //   handler: function() {
     //     // move item up one space
@@ -183,6 +198,7 @@ var app = {
     // // create down button
     // var downLink = this.buildLink({
     //   contents: '<i class="fa fa-arrow-down fa-lg"></i>',
+    //   href: "#",
     //   class: "down button tiny radius",
     //   handler: function() {
     //     // move item down one space
@@ -196,7 +212,7 @@ var app = {
     // });
 
     // put it all together
-    editGroup.append(editLink, deleteLink, favoriteLink);
+    editGroup.append(editLink, rivalsLink, favoriteLink, deleteLink);
     // moveGroup.append(topLink, upLink, downLink);
     ul.append(editGroup);
     return dl.append(li.append(dt, dd.append(ul)));
@@ -204,7 +220,7 @@ var app = {
 
   buildLink: function(options) {
     return $('<a/>').attr({
-      href: "#",
+      href: options.href,
       "class": options.class,
     }).html(options.contents)
       .click(options.handler);

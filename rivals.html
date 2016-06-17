@@ -1,0 +1,55 @@
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rivalries</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.3/foundation.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/app.css">
+  </head>
+  <body>
+    <div class="row">
+      <div class="medium-offset-2 medium-8 columns">
+        <h2>Rivalries</h2>
+        <form id="rivalForm">
+          <ul class="button-group">
+            <li class="medium-6 columns">
+              <button type="button" id="load" class="secondary button expanded">Load from Server</button>
+            </li>
+            <li class="medium-6 columns">
+              <button type="button" id="clear" class="alert button expanded">Clear</button>
+            </li>
+          </ul>
+          <div class="row">
+            <div class="medium-5 columns">
+              <select class="" name="rivalName1">
+
+              </select>
+            </div>
+            <div class="medium-5 columns">
+              <select class="" name="rivalName2">
+
+              </select>
+            </div>
+            <div class="medium-2 columns">
+              <button type="submit" class="button expanded">Add Rival</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div id="rivalList" class="medium-offset-2 medium-8 columns">
+
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/what-input/2.1.0/what-input.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.3/foundation.min.js"></script>
+    <script src="js/rivals.js"></script>
+  </body>
+</html>
