@@ -3,14 +3,6 @@ $(document).foundation();
 var app = {
   // initialize app
   init: function(formSelector, listSelector) {
-    $.ajax({
-      url: 'https://xtern-roster.herokuapp.com/',
-      method: 'get',
-      success: function(sites) {
-        app.people = sites.resources.people + '/';
-        app.rivalries = sites.resources.rivalries + '/';
-      },
-    });
     this.form = $(formSelector);
     this.list = $(listSelector);
     // this.getLocalStorage();
@@ -60,7 +52,7 @@ var app = {
         if ((editLink.attr("class") === "update button tiny radius success") &&
         ($('[name="editName"]').val().length)) {
           $.ajax({
-            url: app.people + dl.attr('data-id'),
+            url: 'http://localhost:8000/' + dl.attr('data-id'),
             method: 'patch',
             contentType: "application/json",
             data: JSON.stringify({
@@ -99,7 +91,7 @@ var app = {
       class: "remove button tiny radius alert",
       handler: function() {
         $.ajax({
-          url: app.people + dl.attr('data-id'),
+          url: 'http://localhost:8000/' + dl.attr('data-id'),
           method: 'delete',
           success: function() {
             app.list.slideUp();
@@ -119,7 +111,7 @@ var app = {
         if (editLink.attr("class") === "edit button tiny radius secondary") {
           if (dl.attr("class") === "favorite") {
             $.ajax({
-              url: app.people + dl.attr('data-id'),
+              url: 'http://localhost:8000/' + dl.attr('data-id'),
               method: 'patch',
               contentType: "application/json",
               data: JSON.stringify({
@@ -135,7 +127,7 @@ var app = {
           }
           else {
             $.ajax({
-              url: app.people + dl.attr('data-id'),
+              url: 'http://localhost:8000/' + dl.attr('data-id'),
               method: 'patch',
               contentType: "application/json",
               data: JSON.stringify({
@@ -248,7 +240,7 @@ var app = {
     this.list.slideUp();
     $.ajax({
       method: 'get',
-      url: app.people,
+      url: 'http://localhost:8000/',
       success: function(roster) {
         $.each(roster, function(i, student) {
           app.list.append(app.buildList(student.name, student.promoted, student.id));
@@ -261,7 +253,7 @@ var app = {
   clearRoster: function(event) {
     $.each(app.list.children(), function(i, dl) {
       $.ajax({
-        url: app.people + dl.attr('data-id'),
+        url: 'http://localhost:8000/' + dl.attr('data-id'),
         method: 'delete',
         success: function() {
           dl.remove();
